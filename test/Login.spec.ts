@@ -1,6 +1,7 @@
 
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../Pages/LoginPage';
+import { getRequiredCredential } from '../data/credentials';
 
 test.describe('Swag Labs Login', () => {
   test('successful login', async ({ page }) => {
@@ -8,8 +9,8 @@ test.describe('Swag Labs Login', () => {
 
     await loginPage.navigate();
     await loginPage.login(
-      'standard_user',
-      'secret_sauce'
+      getRequiredCredential('SWAG_LABS_USERNAME'),
+      getRequiredCredential('SWAG_LABS_PASSWORD'),
     );
     await loginPage.verifySuccessfulLogin();
   });
@@ -31,8 +32,8 @@ test.describe('Swag Labs Login', () => {
 
     await loginPage.navigate();
     await loginPage.login(
-      'locked_out_user',
-      'secret_sauce'
+      getRequiredCredential('SWAG_LABS_LOCKED_OUT_USERNAME'),
+      getRequiredCredential('SWAG_LABS_PASSWORD'),
     );
 
     await expect(loginPage.errorMessage)
