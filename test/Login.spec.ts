@@ -36,6 +36,15 @@ test.describe('Swag Labs Login', () => {
     await expect(loginPage.errorMessage).toContainText('Username is required');
   });
 
+  test('requires a password before login', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.navigate();
+    await loginPage.login(getRequiredCredential('SWAG_LABS_USERNAME'), '');
+
+    await expect(loginPage.errorMessage).toContainText('Password is required');
+  });
+
   test('locked out user', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
