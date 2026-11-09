@@ -27,6 +27,15 @@ test.describe('Swag Labs Login', () => {
     await expect(loginPage.errorMessage).toBeVisible();
   });
 
+  test('requires a username before login', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.navigate();
+    await loginPage.login('', '');
+
+    await expect(loginPage.errorMessage).toContainText('Username is required');
+  });
+
   test('locked out user', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
